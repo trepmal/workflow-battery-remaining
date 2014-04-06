@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>kdl-battery-remaining</string>
+	<key>connections</key>
+	<dict>
+		<key>2D4E6B83-DFE8-4E28-A949-7D43F062100B</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>E79E34BD-9E2A-435F-8382-837AF362BC9A</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>E79E34BD-9E2A-435F-8382-837AF362BC9A</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>662CACBB-3D57-430D-B50F-7B5FD9EC2040</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Kailey Lampert</string>
+	<key>description</key>
+	<string>Show remaining battery life</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Battery Remaining</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>keyword</key>
+				<string>battery</string>
+				<key>script</key>
+				<string>#battery icon: http://www.graphicsfuel.com/2011/03/battery-psd-icons/
+#script: http://kly.me/yJVobq
+#with mods from @phomac
+
+isFullyCharged=`ioreg -n AppleSmartBattery | grep FullyCharged | awk '{ print $5 }'`
+timeLeft=`ioreg -n AppleSmartBattery | grep TimeRemaining | awk '{ print $5}'`
+
+hours=`expr $timeLeft / 60`;
+minutes=`expr $timeLeft % 60`;
+
+echo "&lt;?xml version='1.0'?&gt;&lt;items&gt;&lt;item uid='suggest' arg='asdf'&gt;&lt;title&gt;Battery Remaining&lt;/title&gt;"
+
+if [ $isFullyCharged = "Yes" ] ; then
+    echo "&lt;subtitle&gt;Fully Charged!&lt;/subtitle&gt;"
+else
+    echo "&lt;subtitle&gt;$hours:$minutes hours remaining&lt;/subtitle&gt;"
+fi
+echo '&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;&lt;/items&gt;'
+</string>
+				<key>subtext</key>
+				<string>...</string>
+				<key>title</key>
+				<string>Battery Remaining</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>2D4E6B83-DFE8-4E28-A949-7D43F062100B</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>#battery icon: http://www.graphicsfuel.com/2011/03/battery-psd-icons/
+#script: http://kly.me/yJVobq
+#with mods from @phomac
+
+isFullyCharged=`ioreg -n AppleSmartBattery | grep FullyCharged | awk '{ print $5 }'`
+timeLeft=`ioreg -n AppleSmartBattery | grep TimeRemaining | awk '{ print $5}'`
+
+hours=`expr $timeLeft / 60`;
+minutes=`expr $timeLeft % 60`;
+
+
+if [ $isFullyCharged = "Yes" ] ; then
+    echo "Fully Charged!"
+else
+    echo "$hours:$minutes hours remaining"
+fi
+</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>E79E34BD-9E2A-435F-8382-837AF362BC9A</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Battery Remaining</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>662CACBB-3D57-430D-B50F-7B5FD9EC2040</string>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>2D4E6B83-DFE8-4E28-A949-7D43F062100B</key>
+		<dict>
+			<key>ypos</key>
+			<real>150</real>
+		</dict>
+		<key>662CACBB-3D57-430D-B50F-7B5FD9EC2040</key>
+		<dict>
+			<key>ypos</key>
+			<real>170</real>
+		</dict>
+		<key>E79E34BD-9E2A-435F-8382-837AF362BC9A</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://trepmal.com/alfredapp/battery-remaining/</string>
+</dict>
+</plist>
